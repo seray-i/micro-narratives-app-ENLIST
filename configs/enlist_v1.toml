@@ -80,7 +80,6 @@ what = "Does today feel like a good or a bad day?"
 context =  "What’s the context? What else should we know about the situation?"
 thoughts = "What, if any, were the things that were bothering you?"
 behaviour = "What did you do differently as a result?"
-other = ""Is there anything else about how you were acting or thinking that you'd like to share?"
 
 [summaries.personas]
 
