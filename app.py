@@ -27,6 +27,38 @@ from llm_config import LLMConfig
 ENABLE_LANGSMITH = False
 logger = st.logger.get_logger("micronarratives")
 
+def loadSettings():
+    """
+    Obtain settings from streamlit secrets file and/or command line arguments.
+    """
+
+    if ENABLE_LANGSMITH:
+        if st.secrets.get("LANGCHAIN_API_KEY"):
+            os.environ["LANGCHAIN_API_KEY"] = st.secrets["LANGCHAIN_API_KEY"]
+        if st.secrets.get("LANGCHAIN_PROJECT"):
+            os.environ["LANGCHAIN_PROJECT"] = st.secrets["LANGCHAIN_PROJECT"]
+        os.environ["LANGCHAIN_TRACING_V2"] = "true"
+        if st.secrets.get("LANGCHAIN_ENDPOINT"):
+            os.environ["LANGCHAIN_ENDPOINT"] = st.secrets["LANGCHAIN_ENDPOINT"]
+    else:
+        os.environ["LANGCHAIN_TRACING_V2"] = "false"
+
+    # Get an OpenAI API Key before continuing
+    if "OPENAI_API_KEY" in st.secrets:
+        os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
+    else:
+        os.environ["OPENAI_API_KEY"] = st.sidebar.text_input(
+            "OpenAI API Key", type="password"
+        )
+    if not os.environ["OPENAI_API_KEY"]:
+        st.info("Enter an OpenAI API Key to continue")
+        st.stop()
+
+    # Identify config file from input args or streamlit secrets.
+    input_args = sys.argv[1:]
+    config_file = input_args[0] if len(input_args) else st.secrets.get("CONFIG_FILE")
+
+    return config_file
 
 def stateAgent(
     llm_prompts,
@@ -220,38 +252,7 @@ def initialiseStreamlitSessionState(llm_prompts, num_scenarios):
 
 
 @st.cache_resource
-def loadSettings():
-    """
-    Obtain settings from streamlit secrets file and/or command line arguments.
-    """
 
-    if ENABLE_LANGSMITH:
-        if st.secrets.get("LANGCHAIN_API_KEY"):
-            os.environ["LANGCHAIN_API_KEY"] = st.secrets["LANGCHAIN_API_KEY"]
-        if st.secrets.get("LANGCHAIN_PROJECT"):
-            os.environ["LANGCHAIN_PROJECT"] = st.secrets["LANGCHAIN_PROJECT"]
-        os.environ["LANGCHAIN_TRACING_V2"] = "true"
-        if st.secrets.get("LANGCHAIN_ENDPOINT"):
-            os.environ["LANGCHAIN_ENDPOINT"] = st.secrets["LANGCHAIN_ENDPOINT"]
-    else:
-        os.environ["LANGCHAIN_TRACING_V2"] = "false"
-
-    # Get an OpenAI API Key before continuing
-    if "OPENAI_API_KEY" in st.secrets:
-        os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
-    else:
-        os.environ["OPENAI_API_KEY"] = st.sidebar.text_input(
-            "OpenAI API Key", type="password"
-        )
-    if not os.environ["OPENAI_API_KEY"]:
-        st.info("Enter an OpenAI API Key to continue")
-        st.stop()
-
-    # Identify config file from input args or streamlit secrets.
-    input_args = sys.argv[1:]
-    config_file = input_args[0] if len(input_args) else st.secrets.get("CONFIG_FILE")
-
-    return config_file
 
 
 def buildExtractionChain(extraction_prompt_template, model_name):
