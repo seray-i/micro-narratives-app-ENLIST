@@ -43,16 +43,10 @@ def loadSettings():
     else:
         os.environ["LANGCHAIN_TRACING_V2"] = "false"
 
-    # Get an OpenAI API Key before continuing
-    if "OPENAI_API_KEY" in st.secrets:
-        os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
-    else:
-        os.environ["OPENAI_API_KEY"] = st.sidebar.text_input(
-            "OpenAI API Key", type="password"
-        )
-    if not os.environ["OPENAI_API_KEY"]:
-        st.info("Enter an OpenAI API Key to continue")
-        st.stop()
+    os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY", "sk-your-key-here")
+if not os.environ["OPENAI_API_KEY"]:
+    st.info("Enter an OpenAI API Key to continue")
+    st.stop()
 
     # Identify config file from input args or streamlit secrets.
     input_args = sys.argv[1:]
