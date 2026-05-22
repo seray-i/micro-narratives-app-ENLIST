@@ -1,0 +1,7 @@
+streamlit
+streamlit-feedback
+langchain==0.1.17
+langchain-community
+langchain-openai
+langsmith
+boto3
