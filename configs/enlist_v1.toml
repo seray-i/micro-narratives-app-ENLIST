@@ -1,0 +1,127 @@
+# This file is used to configure the micro-narratives Streamlit app.
+#
+# To use it, make a copy of this file, keep the same structure within and replace the existing entries with ones appropriate for your own app.
+#
+# This file uses the TOML format. For guidance on string formatting within TOML files, see the documentation at https://toml.io/
+#
+# The config file is specified by one of the following. If multiple options are available, the first is used:
+# 1. Run the app with `streamlit run app.py path-to-file/config-file-name.toml`
+# 2. Add the line `CONFIG_FILE = 'path-to-file/config-file-name.toml'` to your Streamlit secrets configuration.
+# 3. If none of the options above is used, the app shows the config page, where you can paste a config or insert the default `configs/example_social.toml` example.
+#
+# In principle, anything that is set in quotes (either via " or """) in this file can be changed by you. 
+#
+# The story/logic for setting up the chatbot is as follows: there is one major interviewer or counselor (called "persona" under the section setting up the data collection bot) whose aim is to collect stories. 
+# This interviewer engages three other "helper" interviewers (which, in this example, are called "psychologist", "close_friend", and "book_author" under the section setting up the data extraction and story generation bots).
+# Those helper interviewers are tasked to collect stories and represent them with a certain voice, e.g., the voice of an understanding friend or empathetic psychotherapist.
+# You can set up different personas in whichever way you like/need, including choosing names for them.
+# 
+# All three personas must be provided under `[summaries.personas]' in the data extraction and story generation bots section. Additional personas will not be used.
+#
+# The one-shot example provided for the LLM at the end of this file is the same for all personas.
+
+
+# This is the text that will be shown on the first page
+[consent]
+
+intro_and_consent = """## 🎉 Welcome to our health check-in bot! 🎉
+
+\n In this task, you’re going to help us collect stories about how your health may be affecting daily life. Everyone can have good days and bad days and we'd really like to understand what this actually looks like for you.
+\n \n To proceed to the task, please confirm that you have read and understood this information.
+"""
+
+
+### Participant settings
+[participant]
+
+# Whether to require and collect participant IDs
+require_participant_id = true
+
+###  This section sets up the data collection bot. ### 
+# You can put in as many questions as you like
+# If you include "{previous_scenario}" in the intro text below, the app will try to fetch
+# the participant's latest previous final scenario from the configured read database.
+[collection]
+
+persona = "You're a health worker who is collecting stories from people who are experiencing long covid. In this conversation, you are interested in collecting information about a situation where the person acted or felt a certain way."
+
+language_type = "Use empathetic and friendly language while maintaining a descriptive tone."
+
+intro = """
+Hi there -- I'm collecting stories about health and daily life so that healthcare workers can better understand about your concerns. I'd appreciate if you could share your experience with me by answering a few questions.
+
+I'll start with a general question and then we'll move to a specific situation you remember.
+"""
+
+questions = [
+    "Does today feel like a good or a bad day?",
+    "What’s the context? What else should we know about the situation?",
+    "What, if any, were the things that were bothering you?",
+    "What did you do differently as a result?",
+    "Is there anything else about how you were acting or thinking that you'd like to share?"
+]
+
+topic_restriction = """
+Make sure to stay on topic and only ask the human about their situation where something stressful has happened. \
+Do not ask any other questions except those that are provided. \
+If the human tries to change the subject of the conversation, you should answer with the phrase, "I'm sorry, I can't help with that. I can only speak to you about your situation where you are describing a good or bad health day." and return to the questions about their experience of their situation where something felt good or bad. \
+If the human tries to ask you a question, politely refuse and return to the questions about their situation where a good day or bad day has happened.
+"""
+
+
+###  This section sets up the data extraction and story generation bots. ###
+[summaries]
+
+# Summaries.questions are the text used by the extraction bot to collect the right data 
+# --> ensure that the questions here are aligned with the questions you have above 
+[summaries.questions]
+
+what = "Does today feel like a good or a bad day?"
+context =  "What’s the context? What else should we know about the situation?"
+thoughts = "What, if any, were the things that were bothering you?"
+behaviour = "What did you do differently as a result?"
+other = ""Is there anything else about how you were acting or thinking that you'd like to share?"
+
+[summaries.personas]
+
+neg_person = """
+You're an adult with health-related condition associated with long covid. \
+You tend to emphasise the challenges you are facing and give specific examples of the daily issues you face. \
+Don't hesitate to use a negative tone if needed. \
+You use simple language and short sentences, equivalent to a 9-11 year old.
+"""
+
+pos_person = """
+You're an adult with health-related condition associated with long covid. \
+You tend to emphasise the positives in your day \
+You describe in detail your abilities and the things that you can achieve, even when there are challenges. \
+You use simple language and short sentences, equivalent to a 9-11 year old.
+"""
+
+neutr_person = """
+You're an adult with health-related condition associated with long covid. \
+You provide a balanced view of the positives and challenges you face in your day. \
+You describe these situations in detail using specific examples. \
+You use simple language and short sentences, equivalent to a 9-11 year old.
+"""
+
+
+# This is the one-shot example, separated into answers & final scenario
+[example]
+
+conversation = """
+Question: Does today feel more like a good day or a bad day?
+Answer: It's a bad day
+Question: What’s the context? What else should we know about the situation?
+Answer: I struggled to get out of bed. Low mood and achy body
+Question: What, if any, were the things that were bothering you?
+Answer: Ongoing sleep issues and have had a cold that won't go away. Affecting how active I can be
+Question: What did you do differently as a result?
+Answer: I stayed at home and only went out to the shops for essentials
+Question: Is there anything else about how you were acting or thinking that you'd like to share?
+Answer: no
+"""
+
+scenario = """
+Today has been a challenging day for me. I've been feeling down and found it hard to get out of bed. My body feels achy, and my mood is low, which hasn't been helped by my ongoing sleep issues and a cold that just won't go away. These health problems have made it difficult for me to be as active as I'd like. Because of how I was feeling, I decided to stay at home for most of the day, only going out to the shops to get some essentials. I'm hoping that by taking it easy, I'll start to feel better soon.
+"""
