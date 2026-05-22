@@ -5,7 +5,7 @@ from pathlib import Path
 
 import boto3
 import streamlit as st
-from langchain.chains.conversation import ConversationChain
+from langchain.chains import ConversationChain
 from langchain.memory import ConversationBufferMemory
 from langchain.output_parsers.json import SimpleJsonOutputParser
 from langchain_community.chat_message_histories import StreamlitChatMessageHistory

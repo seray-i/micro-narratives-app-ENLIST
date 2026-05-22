@@ -1,6 +1,6 @@
 streamlit
 streamlit-feedback
-langchain==0.1.17
+langchain
 langchain-community
 langchain-openai
 langsmith
