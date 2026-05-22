@@ -1,7 +1,7 @@
 streamlit
 streamlit-feedback
-langchain
-langchain-community
+langchain==0.1.17
+langchain-community==0.0.38
 langchain-openai
 langsmith
 boto3
