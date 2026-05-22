@@ -24,10 +24,10 @@
 # This is the text that will be shown on the first page
 [consent]
 
-intro_and_consent = """## 🎉 Welcome to our health check-in bot! 🎉
+intro_and_consent = """## Welcome to our health check-in bot!
 
 \n In this task, you’re going to help us collect stories about how your health may be affecting daily life. Everyone can have good days and bad days and we'd really like to understand what this actually looks like for you.
-\n \n To proceed to the task, please confirm that you have read and understood this information.
+\n To proceed to the task, please confirm that you have read and understood this information.
 """
 
 
