@@ -1,5 +1,7 @@
 # --- Project-specific files/folders ---
 
+.streamlit/secrets.toml
+
 secrets*
 *.zip
 .platform
