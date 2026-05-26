@@ -6,6 +6,8 @@ secrets*
 *.zip
 .platform
 
+CONFIG_FILE = 'path-to-file/config-file-name.toml'
+
 # Track example configs but not others that users may create
 configs/*.toml
 !configs/example*.toml
