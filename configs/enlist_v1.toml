@@ -56,7 +56,7 @@ I'll start with a general question and then we'll move to a specific situation y
 questions = [
     "Does today feel like a good or a bad day?",
     "What’s the context? What else should we know about the situation?",
-    "What, if any, were the things that were bothering you?",
+    "What, if any, were the things that were bothering you and was there any support available to you?",
     "What did you do differently as a result?",
     "Is there anything else about how you were acting or thinking that you'd like to share?"
 ]
@@ -113,7 +113,7 @@ Question: Does today feel more like a good day or a bad day?
 Answer: It's a bad day
 Question: What’s the context? What else should we know about the situation?
 Answer: I struggled to get out of bed. Low mood and achy body
-Question: What, if any, were the things that were bothering you?
+Question: What, if any, were the things that were bothering you and was there any support available to you?
 Answer: Ongoing sleep issues and have had a cold that won't go away. Affecting how active I can be
 Question: What did you do differently as a result?
 Answer: I stayed at home and only went out to the shops for essentials
