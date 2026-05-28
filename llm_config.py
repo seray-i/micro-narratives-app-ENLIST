@@ -1,4 +1,3 @@
-```python
 import tomllib
 
 from langchain_core.prompts import PromptTemplate
@@ -363,4 +362,3 @@ class LLMConfig:
             )
 
         return q_and_a
-```
