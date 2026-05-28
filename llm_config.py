@@ -90,16 +90,16 @@ self.questions_outro = (
     "Great, I think I got all I need -- but let me double check!"
 )
         
-        # Extraction process
-        self.extraction_prompt_template = self.generate_extraction_prompt_template(
-            config["summaries"]["questions"]
+# Extraction process
+    self.extraction_prompt_template = self.generate_extraction_prompt_template(
+        config["summaries"]["questions"]
         )
         self.summary_keys = list(config["summaries"]["questions"].keys())
 
-        # Scenario generation and adaptation
-        self.personas = [
-            persona.strip()
-            for persona in list(config["summaries"]["personas"].values())
+# Scenario generation and adaptation
+    self.personas = [
+        persona.strip()
+        for persona in list(config["summaries"]["personas"].values())
         ]
         self.one_shot = self.generate_one_shot(config["example"])
         self.one_shot_conversation = config["example"]["conversation"].strip()
