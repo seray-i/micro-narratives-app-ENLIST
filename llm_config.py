@@ -91,22 +91,22 @@ self.questions_outro = (
 )
         
 # Extraction process
-    self.extraction_prompt_template = self.generate_extraction_prompt_template(
-        config["summaries"]["questions"]
-        )
-        self.summary_keys = list(config["summaries"]["questions"].keys())
+self.extraction_prompt_template = self.generate_extraction_prompt_template(
+    config["summaries"]["questions"]
+)
+self.summary_keys = list(config["summaries"]["questions"].keys())
 
 # Scenario generation and adaptation
-    self.personas = [
-        persona.strip()
-        for persona in list(config["summaries"]["personas"].values())
-        ]
-        self.one_shot = self.generate_one_shot(config["example"])
-        self.one_shot_conversation = config["example"]["conversation"].strip()
-        self.scenario_prompt_template = self.generate_scenario_prompt_template(
-            config["summaries"]["questions"]
-        )
-        self.adaptation_prompt_template = self.generate_adaptation_prompt_template()
+self.personas = [
+    persona.strip()
+    for persona in list(config["summaries"]["personas"].values())
+    ]
+    self.one_shot = self.generate_one_shot(config["example"])
+    self.one_shot_conversation = config["example"]["conversation"].strip()
+    self.scenario_prompt_template = self.generate_scenario_prompt_template(
+    config["summaries"]["questions"]
+    )
+    self.adaptation_prompt_template = self.generate_adaptation_prompt_template()
 
     def check_if_previous_scenario_required(self, intro_text):
         """
