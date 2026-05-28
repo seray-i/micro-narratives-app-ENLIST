@@ -74,17 +74,22 @@ class LLMConfig:
         self.intro_and_consent = config["consent"]["intro_and_consent"].strip()
 
         # Conversation page
-        self.questions_intro_prompt_template = PromptTemplate(
-            template=config["collection"]["intro"].strip()
-            + "\n\nLet me know when you're ready!"
-        )
-        self.questions_prompt_template = self.generate_questions_prompt_template(
-            config["collection"]
-        )
-        self.questions_outro = (
-            "Great, I think I got all I need -- but let me double check!"
-        )
+self.questions_intro_prompt_template = PromptTemplate(
+    input_variables=[],
+    template=(
+        config["collection"]["intro"].strip()
+        + "\n\nLet me know when you're ready!"
+    ),
+)
 
+self.questions_prompt_template = self.generate_questions_prompt_template(
+    config["collection"]
+)
+
+self.questions_outro = (
+    "Great, I think I got all I need -- but let me double check!"
+)
+        
         # Extraction process
         self.extraction_prompt_template = self.generate_extraction_prompt_template(
             config["summaries"]["questions"]
@@ -241,23 +246,29 @@ class LLMConfig:
         return extraction_prompt_template
 
     def _generate_summary_keys(self, questions):
-        """
-        Produces a comma-separated string that contains the list of keys that should be
-        used when the app creates a summary of the conversation in JSON format.
-        Args:
-            questions ([{key: question}]): list of questions, where the key is a short
-                identifier for the content of each question.
-        Returns:
-            str: comma/"and"-separated list of keys, for use in the summary template.
-        """
-        keys = list(questions.keys())
-        keys_string = f"`{keys[0]}`"
-        for key in keys[1:-1]:
-            keys_string += f", `{key}`"
-        if len(keys_string):
-            keys_string += f", and `{keys[-1]}`"
+    """
+    Produces a comma-separated string that contains the list of keys that should be
+    used when the app creates a summary of the conversation in JSON format.
+    Args:
+        questions ([{key: question}]): list of questions, where the key is a short
+            identifier for the content of each question.
+    Returns:
+        str: comma/"and"-separated list of keys, for use in the summary template.
+    """
 
-        return keys_string
+    keys = list(questions.keys())
+
+    if not keys:
+        return ""
+
+    if len(keys) == 1:
+        return f"`{keys[0]}`"
+
+    keys_string = ", ".join(f"`{key}`" for key in keys[:-1])
+    keys_string += f", and `{keys[-1]}`"
+
+    return keys_string
+
 
     def _generate_summary_questions(self, questions):
         """
