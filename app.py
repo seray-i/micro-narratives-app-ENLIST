@@ -184,11 +184,14 @@ def loadSettings(api_key=None):
             os.environ["LANGCHAIN_ENDPOINT"] = st.secrets["LANGCHAIN_ENDPOINT"]
     else:
         os.environ["LANGCHAIN_TRACING_V2"] = "false"
- 
-    if "OPENAI_API_KEY" in st.secrets:
-        os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
-    elif api_key:
-        os.environ["OPENAI_API_KEY"] = api_key
+
+    openai_key = st.secrets.get("OPENAI_API_KEY") or api_key or os.getenv("OPENAI_API_KEY")
+
+if not openai_key:
+    st.error("Missing OPENAI_API_KEY. Add it to Streamlit secrets.")
+    st.stop()
+
+os.environ["OPENAI_API_KEY"] = openai_key
  
     # Identify config file from input args or streamlit secrets.
     input_args = sys.argv[1:]
