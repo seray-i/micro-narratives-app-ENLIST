@@ -26,7 +26,8 @@
 
 intro_and_consent = """## Welcome to our health check-in bot!
 
-\n In this task, you’re going to help us collect stories about how your health may be affecting daily life. Everyone can have good days and bad days and we'd really like to understand what this actually looks like for you.
+\n Now that you have told us about your health today, we want to collect stories about how your health may be affecting daily life. Everyone can have good days and bad days and we'd really like to understand what this actually looks like for you.
+\n Please use the red arrows below to continue. Only press the blue arrow when you are completely finished with the story gathering.
 \n To proceed to the task, please confirm that you have read and understood this information.
 """
 
@@ -35,7 +36,7 @@ intro_and_consent = """## Welcome to our health check-in bot!
 [participant]
 
 # Whether to require and collect participant IDs
-require_participant_id = true
+require_participant_id = false
 
 ###  This section sets up the data collection bot. ### 
 # You can put in as many questions as you like
