@@ -49,7 +49,7 @@ persona = "You're a health worker who is collecting stories from people who are 
 language_type = "Use empathetic and friendly language while maintaining a descriptive tone."
 
 intro = """
-Hi there -- I'm collecting stories about health and daily life so that healthcare workers can better understand about your concerns. I'd appreciate if you could share your experience with me by answering a few questions.
+Hi there -- I'm collecting stories about health and daily life so that so that researchers can better understand what impacts on your health and daily life. I'd appreciate if you could share your experience with me by answering a few questions.
 
 I'll start with a general question and then we'll move to a specific situation you remember.
 """
